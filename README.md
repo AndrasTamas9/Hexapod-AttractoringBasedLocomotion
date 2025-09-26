@@ -1,4 +1,4 @@
-# Hexapod-AttractoringBasedLocomotion
+# Hexapod-Attractoring Based Locomotion
 
 This repository provides a minimal toolchain to (1) run a **neural torque controller** for a hexapod on an Arbotix-M, (2) start/stop an experiment from a Raspberry Pi while streaming and logging telemetry, and (3) post-process the logs into heatmaps and joint-tracking plots.
 
