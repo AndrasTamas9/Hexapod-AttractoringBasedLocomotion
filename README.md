@@ -31,29 +31,3 @@ A **Python script** for analyzing joint movement data and visualizing it.
 
 ---
 
-## Purpose
-
-Together, these two codes enable both **real-time control** (on the microcontroller) and **post-experiment analysis** (in Python) of the hexapod’s walking gaits, making it easier to design, test, and validate locomotion strategies.
-
----
-
-## Requirements
-
-- **Hexapod_TorqueControl.ino**  
-  - Arduino IDE  
-  - Arbotix-M microcontroller  
-  - Dynamixel servos  
-
-- **heatmap_with_joint_positions.py**  
-  - Python 3.x  
-  - NumPy  
-  - Matplotlib  
-
----
-
-## Example Output
-
-- Real-time robot control through Raspberry Pi + Arbotix-M.
-- Heatmap visualization of leg trajectories and joint tracking performance.
-
-
