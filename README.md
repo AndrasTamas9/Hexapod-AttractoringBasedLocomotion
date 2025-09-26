@@ -70,5 +70,56 @@ Processes `.txt` logs produced by the Pi:
 - Renders, for the last time window:
   - A **heatmap** of the **z** end-point for all 6 legs vs time (RF, RM, RB, LF, LM, LB).
   - Two time plots comparing **current vs target** angles for the first two **coxa** and **femur** joints.
-- Batch mode: scans all `*.txt` files in the working directory and writes a PNG per input:
+- Batch mode: scans all `*.txt` files in the working directory and writes a PNG per input.
+
+## 2) How to use
+
+### 1. Upload the firmware
+- Open **Arduino IDE** on your PC.
+- Load the file: `Hexapod_TorqueControl.ino`
+- Select the correct **Board / Processor / Port** (Arbotix-M).
+- Click **Upload**.  
+  ✅ The hexapod controller now runs the neural torque control firmware.
+
+---
+
+### 2. Connect hardware
+- Connect the **Arbotix-M** to the **Raspberry Pi** via USB.
+- Power the **Dynamixel servo bus** with the correct voltage/current supply.
+- Make sure the Raspberry Pi can access the serial port (usually `/dev/ttyUSB0`).  
+  *(If the port differs, update the Python script accordingly.)*
+
+---
+
+### 3. Start an experiment from the Raspberry Pi
+Run the Python client:
+```bash
+python3 PiSerial.py
+```
+
+The script will prompt you for:
+- `FILE name` → the name of the log file (creates `<name>.txt`)
+- `w_y`, `w_s`, `w_k`, `rand_par` → control parameters for the neural controller
+
+Workflow:
+1. The Raspberry Pi sends `connect` until the controller replies **`CONNECTED!`**  
+2. The Pi sends your parameters and waits for **`GET!`**  
+3. The controller starts the experiment  
+4. The Pi **logs all telemetry** into `<name>.txt` (also echoed in the console)
+
+Stopping:
+- Press **Ctrl+C** → the Pi sends `S\n`, the robot halts, and the log file closes.
+
+Restarting:
+- Simply run `python3 PiSerial.py` again with new parameters/filename → the robot starts a new run.
+
+### 4. Analyze the logs
+
+To visualize the data, copy or move the `.txt` files (saved by the Raspberry Pi) into the same folder as `heatmap_with_joint_positions.py`.
+
+Then run:
+```bash
+python3 heatmap_with_joint_positions.py
+```
+
 
